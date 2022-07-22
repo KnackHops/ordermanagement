@@ -1,0 +1,19 @@
+.table-container {
+    margin-bottom: 2rem;
+
+    .last-row-btns {
+        width: 100%;
+        gap: 2rem;
+
+        span {
+            cursor: pointer;
+        }
+        .view-btn {
+            color: #30A8FF;
+        }
+
+        .delete-btn {
+            color: #FF0000;
+        }
+    }
+}

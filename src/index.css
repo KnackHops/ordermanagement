@@ -1,0 +1,25 @@
+
+*,
+::before,
+::after {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+
+ul, li {
+  list-style: none;
+  padding-left: 0;
+}
+
+.fd {
+  display: flex;
+}
+
+h1 {
+  font-weight: 600;
+}
+
+p {
+  font-weight: 300;
+}

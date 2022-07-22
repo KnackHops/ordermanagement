@@ -1,0 +1,33 @@
+.section-header {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    .header-fields,
+    .text-fields {
+        gap: 2rem;
+    }
+
+    .header-fields {
+        flex-wrap: wrap;
+    }
+
+    @media only screen and (max-width: 645px) {
+        .add-btn {
+            width: 100%;
+        }
+
+        .header-fields {
+            flex-direction: column;
+            width: 100%;
+
+            & > div {
+                width: 100%;
+            }
+
+            .text-fields > div {
+                flex: 1;
+            }
+        }
+    }
+}

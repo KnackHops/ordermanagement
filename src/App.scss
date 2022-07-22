@@ -1,0 +1,22 @@
+@use '../src/shared/variables';
+
+.MuiButton-root {
+    min-height: 3.125rem !important;
+    background-color: variables.$blue-color !important;
+
+    &.-gray {
+        background-color: variables.$gray-light-color !important;
+    }
+
+    &.-big {
+        min-width: 10.9375rem !important;
+    }
+}
+
+.margin--top-standard {
+    margin-top: 5.25rem;
+
+    @media only screen and (max-height: 500px) {
+        margin-top: 2.5rem;
+    }
+}

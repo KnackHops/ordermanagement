@@ -1,0 +1,32 @@
+.data-card {
+    // height: 9.125rem;
+    // width: 16rem;
+    height: 9rem;
+    width: 18rem;
+    border-radius: .25rem;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    flex-direction: column;
+
+    p {
+        height: 100%;
+        padding: 1.25rem;
+        padding-bottom: 1.75rem;
+        color: white;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .data-bottom {
+            align-items: center;    
+
+            img {
+                height: 2.5rem;
+            }
+
+            .data-value {
+                font-size: 2.5rem;
+                margin-left: 1rem;
+                font-weight: 400;
+            }
+        }
+    }
+}

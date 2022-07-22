@@ -1,0 +1,21 @@
+@use '../../shared/variables';
+
+header {
+    background-color: variables.$dark-color;
+    padding: .75rem 7vw .5rem 7vw;
+    align-items: flex-end;
+    gap: .5rem;
+
+    * {
+        color: white;
+    }
+
+    p {
+        margin-bottom: .25rem;
+    }
+
+    @media only screen and (max-width: 500px) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
