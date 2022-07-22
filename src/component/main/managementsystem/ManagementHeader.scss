@@ -31,3 +31,27 @@
         }
     }
 }
+
+// modal styles
+.add-new-order-form {
+    ul {
+        li {
+            gap: 2rem;
+            margin-bottom: 2rem;
+            
+            & > * {
+                min-width: 12.5rem;
+            }
+        }
+    }
+
+    .outside-text {
+        margin-bottom: 2rem;
+    }
+
+    .base-btns {
+        :first-child {
+            margin-right: 2rem;  
+        }
+    }
+}
