@@ -22,24 +22,7 @@
 
 .base-control {
     margin-bottom: 2.25rem;
-    justify-content: space-between;
-
-    .btns {
-        gap: 2rem;
-        button {
-            border: none;
-            outline: none;
-            background: none;
-            align-items: center;
-            gap: .5rem;
-    
-            img, span {
-                cursor: pointer;
-                font-weight: 700;
-                color: #30A8FF;
-            }
-        }
-    }
+    justify-content: flex-end;
 
     .total {
         gap: 2rem;
