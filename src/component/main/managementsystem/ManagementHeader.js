@@ -8,12 +8,10 @@ import {
     Modal, 
     Box 
 } from "@mui/material"
-import { useContext, useMemo, useState } from "react";
+import { useContext, useState } from "react";
 import ManagementOrderModal from "./ManagementOrderModal";
 import { DataContext } from "./ManagementSystem";
 import './ManagementHeader.scss';
-
-const rootUrl = process.env.REACT_APP_API_URL
 
 const orderStatusDropDown = [
     { 
