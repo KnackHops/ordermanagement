@@ -477,50 +477,52 @@ const ManagementNewOrderModal = ( { handleClose, open, order=null, dateStringify
                             multiline 
                             rows={2} />
                     </li>
-                    <li className='fd'>
-                        <FormControl variant="standard">
-                            <InputLabel id="order_status_label">
-                                ORDER STATUS
-                            </InputLabel>
-                            <Select 
-                                labelId="order_status_label"
-                                id="order_status"
-                                label="ORDER STATUS"
-                                value={ order_status || order_status === 0 ? order_status : "" }
-                                onChange={ e => setOrderStatus( e.target.value ) } >
-                                    {
-                                        orderStatusDropDown.map( order_status_drop => 
-                                            <MenuItem 
-                                                key={ order_status_drop.value }
-                                                value={ order_status_drop.value } >
-                                                    { order_status_drop.label }
-                                            </MenuItem> 
-                                        )
-                                    }        
-                            </Select>
-                        </FormControl>
-                        <FormControl variant="standard">
-                            <InputLabel id="payment_status_label">
-                                PAYMENT STATUS
-                            </InputLabel>
-                            <Select
-                                labelId='payment_status_label'
-                                id="payment_status"
-                                label="PAYMENT STATUS"
-                                value={ payment_status || payment_status === 0 ? payment_status : "" }
-                                onChange={ e => setPaymentStatus( e.target.value ) } >
-                                    {
-                                        paymentStatusDropDown.map( payment_status_drop =>
-                                            <MenuItem
-                                                key={ payment_status_drop.value }
-                                                value={ payment_status_drop.value } >
-                                                { payment_status_drop.label }
-                                            </MenuItem>
-                                        )
-                                    }
-                            </Select>
-                        </FormControl>
-                    </li>
+                    { order?.id &&
+                        <li className='fd'>
+                            <FormControl variant="standard">
+                                <InputLabel id="order_status_label">
+                                    ORDER STATUS
+                                </InputLabel>
+                                <Select 
+                                    labelId="order_status_label"
+                                    id="order_status"
+                                    label="ORDER STATUS"
+                                    value={ order_status || order_status === 0 ? order_status : "" }
+                                    onChange={ e => setOrderStatus( e.target.value ) } >
+                                        {
+                                            orderStatusDropDown.map( order_status_drop => 
+                                                <MenuItem 
+                                                    key={ order_status_drop.value }
+                                                    value={ order_status_drop.value } >
+                                                        { order_status_drop.label }
+                                                </MenuItem> 
+                                            )
+                                        }        
+                                </Select>
+                            </FormControl>
+                            <FormControl variant="standard">
+                                <InputLabel id="payment_status_label">
+                                    PAYMENT STATUS
+                                </InputLabel>
+                                <Select
+                                    labelId='payment_status_label'
+                                    id="payment_status"
+                                    label="PAYMENT STATUS"
+                                    value={ payment_status || payment_status === 0 ? payment_status : "" }
+                                    onChange={ e => setPaymentStatus( e.target.value ) } >
+                                        {
+                                            paymentStatusDropDown.map( payment_status_drop =>
+                                                <MenuItem
+                                                    key={ payment_status_drop.value }
+                                                    value={ payment_status_drop.value } >
+                                                    { payment_status_drop.label }
+                                                </MenuItem>
+                                            )
+                                        }
+                                </Select>
+                            </FormControl>
+                        </li>
+                    }
                 </ul>
                 <div className="base-btns fd">
                     <Button
