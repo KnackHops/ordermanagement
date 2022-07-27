@@ -16,4 +16,12 @@
             color: #FF0000;
         }
     }
+
+    tr > td:nth-child(1) {
+        min-width: 120px;
+    }
+
+    tr > td:nth-child(8) {
+        max-width: 300px;
+    }
 }

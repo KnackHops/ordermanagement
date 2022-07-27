@@ -9,7 +9,8 @@ import {
     Modal, 
     Box,
     Select,
-    MenuItem
+    MenuItem,
+    TablePagination
 } from '@mui/material';
 import {
     useState,
@@ -51,6 +52,9 @@ const tableHead = [
         label: "PAYMENT STATUS"
     },
     {
+        label: "REMARKS"
+    },
+    {
         label: "ACTIONS"
     }
 ]
@@ -63,6 +67,7 @@ const keys = [
     "total_price",
     "order_status",
     "payment_status",
+    "remarks",
 ]
 
 const orderStatusDropDown = [
@@ -90,12 +95,21 @@ const paymentStatusDropDown = [
     }, { 
         value: 2,
         label: "Paid"
+    }, { 
+        value: 11,
+        label: "Payment Reminder 1"
+    }, { 
+        value: 12,
+        label: "Payment Reminder 2"
     }
 ]
 
 
 const ManagementTable = ( ) => {
     const { orders, fetchTableData, dateStringify } = useContext( DataContext );
+
+    const [ currentPage, setCurrentPage ] = useState( 0 );
+
     const [ order, setOrder ] = useState( null );
     const [ updateOrderOpen, setUpdateOrderOpen ] = useState( false );
 
@@ -188,7 +202,7 @@ const ManagementTable = ( ) => {
             return <Select
                         id={ `order_status_${ i }` }
                         label="ORDER STATUS"
-                        sx={ { minWidth: "6rem" } }
+                        sx={ { width: "max-content" } }
                         variant="standard"
                         value={ Number( product?.[key] ) }
                         onChange={ e => handleOrderUpdate( e.target.value, product.id ) } >
@@ -207,7 +221,7 @@ const ManagementTable = ( ) => {
             return <Select
                         id={ `payment_status${ i }` }
                         label="PAYMENT STATUS"
-                        sx={ { minWidth: "6rem" } }
+                        sx={ { width: "max-content" } }
                         variant="standard"
                         value={ Number( product?.[key] ) }
                         onChange={ e => handlePaymentUpdate( e.target.value, product.id ) } >
@@ -240,8 +254,12 @@ const ManagementTable = ( ) => {
                             fetchTableData={ fetchTableData } />
                     </Box>
             </Modal>
-            <TableContainer className='margin--top-standard table-container' component={ Paper }  sx={ { minHeight: "500px" } }>
-                <Table>
+            <TableContainer 
+                className='margin--top-standard table-container' 
+                component={ Paper }
+            >
+                <Table
+                    sx={ { width: "100%" } }>
                     <TableHead>
                         <TableRow>
                             {
@@ -251,14 +269,16 @@ const ManagementTable = ( ) => {
                     </TableHead>
                     <TableBody>
                         {
-                            orders.map( 
+                            orders
+                            .slice( currentPage * 10, currentPage * 10 + 10 )
+                            .map( 
                                 ( product, i ) => <TableRow key={ i }>
                                     {
                                         keys.map( ( key, keyI ) => <TableCell key={ keyI } align="left">
                                             { cellGenerator( product, i, key, keyI ) }
                                         </TableCell>  )
                                     }
-                                    <TableCell sx={ { minWidth: "175px" } } align='left' className='last-row'>
+                                    <TableCell sx={ { minWidth: "150px" } } align='left' className='last-row'>
                                         <span className="last-row-btns fd">
                                             <span 
                                                 className='view-btn'
@@ -266,11 +286,18 @@ const ManagementTable = ( ) => {
                                                 <span onClick={ () => handleDeleteOrder( product.id )  } className='delete-btn'>Delete</span>
                                         </span>
                                     </TableCell>
-                                   
                                 </TableRow> )
                         }
                     </TableBody>
                 </Table>
+                <TablePagination
+                    component="div"
+                    rowsPerPageOptions={[]}
+                    rowsPerPage={10}
+                    count={orders.length}
+                    page={currentPage}
+                    onPageChange={ ( e, newPage ) => setCurrentPage( newPage ) }
+                />
             </TableContainer>
         </>
     )

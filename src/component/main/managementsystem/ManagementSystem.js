@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { createContext, useEffect, useState, useMemo } from "react";
 import DataCard from "../../../sharedComponent/DataCard";
@@ -63,7 +64,7 @@ const ManagementSystem = () => {
 
     useEffect( () => {
         fetchTableData( true )
-    } )
+    }, [] )
 
     const updateDataHandler = () => {
         fetchTableData()

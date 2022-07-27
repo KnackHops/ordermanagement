@@ -47,6 +47,12 @@ const paymentStatusDropDown = [
     }, { 
         value: 2,
         label: "Paid"
+    }, { 
+        value: 11,
+        label: "Payment Reminder 1"
+    }, { 
+        value: 12,
+        label: "Payment Reminder 2"
     }
 ]
 
