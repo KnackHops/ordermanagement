@@ -91,13 +91,11 @@ const paymentStatusDropDown = [
 ]
 
 
-const ArchiveTable = ( { orders, fetchTableData } ) => {
+const ArchiveTable = ( { orders } ) => {
     // function context
 
     const { 
         dateStringify,
-        handleOrderUpdate,
-        handlePaymentUpdate
     } = useContext( FunctionContext );
 
     // function context

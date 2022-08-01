@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import SectionWrapper from "../../../wrapper/SectionWrapper"
 import ArchiveTable from "./ArchiveTable";
