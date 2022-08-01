@@ -3,19 +3,36 @@
 header {
     background-color: variables.$dark-color;
     padding: .75rem 7vw .5rem 7vw;
-    align-items: flex-end;
-    gap: .5rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+        
 
     * {
         color: white;
     }
 
-    p {
-        margin-bottom: .25rem;
-    }
-
     @media only screen and (max-width: 500px) {
         padding-left: 1rem;
         padding-right: 1rem;
+    }
+
+    .icon {
+        align-items: flex-end;
+        gap: .5rem;
+        
+        p {
+            padding-bottom: .25rem;
+        }
+    }
+
+    nav {
+        gap: 4rem;
+        align-items: center;
+        height: 2.5rem;
+
+        @media only screen and (max-width: 1250px) {
+            gap: 1rem;
+        }
     }
 }

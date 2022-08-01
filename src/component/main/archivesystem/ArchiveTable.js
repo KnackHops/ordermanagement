@@ -6,23 +6,15 @@ import {
     TableRow,
     TableCell,
     Paper,
-    Modal, 
-    Box,
-    Select,
-    MenuItem,
     TablePagination
 } from '@mui/material';
 import {
     useState,
-    useEffect,
     useContext, 
 } from 'react';
-import { DataContext } from './ManagementSystem';
-import ManagementOrderModal from "./ManagementOrderModal";
-import './ManagementTable.scss';
+// import ManagementOrderModal from "./ManagementOrderModal";
+import './ArchiveTable.scss';
 import { FunctionContext } from '../Main';
-
-const rootUrl = process.env.REACT_APP_API_URL
 
 const tableHead = [
     {
@@ -38,7 +30,7 @@ const tableHead = [
         label: "REVIEWS"
     },
     {
-        label: "PRICE"
+        label: "TOTAL PRICE"
     },
     {
         label: "ORDER STATUS"
@@ -46,12 +38,12 @@ const tableHead = [
     {
         label: "PAYMENT STATUS"
     },
-    {
-        label: "REMARKS"
-    },
-    {
-        label: "ACTIONS"
-    }
+    // {
+    //     label: "REMARKS"
+    // },
+    // {
+    //     label: "ACTIONS"
+    // }
 ]
 
 const keys = [
@@ -62,7 +54,6 @@ const keys = [
     "total_price",
     "order_status",
     "payment_status",
-    "remarks",
 ]
 
 const orderStatusDropDown = [
@@ -100,59 +91,36 @@ const paymentStatusDropDown = [
 ]
 
 
-const ManagementTable = ( ) => {
+const ArchiveTable = ( { orders, fetchTableData } ) => {
     // function context
 
     const { 
         dateStringify,
         handleOrderUpdate,
-        handlePaymentUpdate 
+        handlePaymentUpdate
     } = useContext( FunctionContext );
 
     // function context
 
-    const { orders, fetchTableData } = useContext( DataContext );
-
     const [ currentPage, setCurrentPage ] = useState( 0 );
 
-    const [ order, setOrder ] = useState( null );
-    const [ updateOrderOpen, setUpdateOrderOpen ] = useState( false );
+    // const [ order, setOrder ] = useState( null );
+    // const [ updateOrderOpen, setUpdateOrderOpen ] = useState( false );
 
-    const handleUpdateOrderOpen = id => {
-        // find order and set it
-        if ( !orders.length ) return
+    // const handleUpdateOrderOpen = id => {
+    //     // find order and set it
+    //     if ( !orders.length ) return
 
-        const orderFound = orders.find( _order => Number( _order.id ) === Number( id ) )
+    //     const orderFound = orders.find( _order => Number( _order.id ) === Number( id ) )
 
-        if ( orderFound ) setOrder( orderFound )
-    }
-    const handleUpdateOrderClose = () => setOrder( null )
+    //     if ( orderFound ) setOrder( orderFound )
+    // }
+    // const handleUpdateOrderClose = () => setOrder( null )
 
-    useEffect( () => {
-        if ( order?.id ) setUpdateOrderOpen( true )
-        else setUpdateOrderOpen( false )
-    }, [ order ] )
-
-    const handleDeleteOrder = ( product_id ) => {
-        const deletOrder = window.confirm("ARE YOU SURE YOU WANT TO DELETE THIS ORDER?")
-
-        if ( !deletOrder ) return
-        
-        fetch( `${rootUrl}/order/${product_id}`, {
-            method: 'DELETE'
-        } )
-        .then( resp => {
-            if ( resp.ok ) {
-                window.confirm("Order deleted!")
-                fetchTableData()
-            }
-            return resp.json()
-        } )
-        .catch( err => {
-            console.log( err )
-            window.alert( "Something went wrong" )
-        } )
-    }
+    // useEffect( () => {
+    //     if ( order?.id ) setUpdateOrderOpen( true )
+    //     else setUpdateOrderOpen( false )
+    // }, [ order ] )
 
     const cellGenerator = ( product, i, key, keyI ) => {
         if ( keyI === 0 ) {
@@ -164,41 +132,50 @@ const ManagementTable = ( ) => {
         if ( keyI === 2 ) return product?.[key].name
 
         if ( keyI === 5 ) {
-            return <Select
-                        id={ `order_status_${ i }` }
-                        label="ORDER STATUS"
-                        sx={ { width: "max-content" } }
-                        variant="standard"
-                        value={ Number( product?.[key] ) }
-                        onChange={ e => handleOrderUpdate( e.target.value, product.id, fetchTableData ) } >
-                            {
-                                orderStatusDropDown.map( ( orderStatus, orderI ) => 
-                                    <MenuItem key={ orderI }
-                                        value={ orderStatus.value }>
-                                        { orderStatus.label }
-                                    </MenuItem> )
-                            }
+            // return <Select
+            //             id={ `order_status_${ i }` }
+            //             label="ORDER STATUS"
+            //             sx={ { width: "max-content" } }
+            //             variant="standard"
+            //             value={ Number( product?.[key] ) }
+            //             onChange={ e => handleOrderUpdate( e.target.value, product.id, fetchTableData ) } >
+            //                 {
+            //                     orderStatusDropDown.map( ( orderStatus, orderI ) => 
+            //                         <MenuItem key={ orderI }
+            //                             value={ orderStatus.value }>
+            //                             { orderStatus.label }
+            //                         </MenuItem> )
+            //                 }
 
-                    </Select>
+            //         </Select>
+
+            console.log(product?.[key])
+
+            return orderStatusDropDown.find( orderStatus => orderStatus.value === Number( product?.[key] ) )?.label || ""
         }
         
         if ( keyI === 6 ) {
-            return <Select
-                        id={ `payment_status${ i }` }
-                        label="PAYMENT STATUS"
-                        sx={ { width: "max-content" } }
-                        variant="standard"
-                        value={ Number( product?.[key] ) }
-                        onChange={ e => handlePaymentUpdate( e.target.value, product.id, fetchTableData ) } >
-                            {
-                                paymentStatusDropDown.map( ( paymentStatus, paymentI ) => 
-                                    <MenuItem key={ paymentI }
-                                        value={ paymentStatus.value }>
-                                        { paymentStatus.label }
-                                    </MenuItem> )
-                            }
+            // return <Select
+            //             id={ `payment_status${ i }` }
+            //             label="PAYMENT STATUS"
+            //             sx={ { width: "max-content" } }
+            //             variant="standard"
+            //             value={ Number( product?.[key] ) }
+            //             onChange={ e => handlePaymentUpdate( e.target.value, product.id, fetchTableData ) } >
+            //                 {
+            //                     paymentStatusDropDown.map( ( paymentStatus, paymentI ) => 
+            //                         <MenuItem key={ paymentI }
+            //                             value={ paymentStatus.value }>
+            //                             { paymentStatus.label }
+            //                         </MenuItem> )
+            //                 }
 
-                    </Select>
+            //         </Select>
+
+            console.log(product?.[key])
+            
+
+            return paymentStatusDropDown.find( paymentStatus => paymentStatus.value === Number( product?.[key] ) )?.label || ""
         }
 
         return product?.[key]
@@ -207,7 +184,7 @@ const ManagementTable = ( ) => {
     return (
         <>
         
-            <Modal 
+            {/* <Modal 
                 open={ updateOrderOpen }
                 onClose={ handleUpdateOrderClose } >
                     <Box className='order-modal-box'>
@@ -218,7 +195,7 @@ const ManagementTable = ( ) => {
                             dateStringify={ dateStringify }
                             fetchTableData={ fetchTableData } />
                     </Box>
-            </Modal>
+            </Modal> */}
             <TableContainer 
                 className='margin--top-standard table-container' 
                 component={ Paper }
@@ -243,14 +220,13 @@ const ManagementTable = ( ) => {
                                             { cellGenerator( product, i, key, keyI ) }
                                         </TableCell>  )
                                     }
-                                    <TableCell sx={ { minWidth: "150px" } } align='left' className='last-row'>
+                                    {/* <TableCell sx={ { minWidth: "150px" } } align='left' className='last-row'>
                                         <span className="last-row-btns fd">
                                             <span 
                                                 className='view-btn'
                                                 onClick={ () => handleUpdateOrderOpen( product.id ) }>View</span> 
-                                                <span onClick={ () => handleDeleteOrder( product.id )  } className='delete-btn'>Delete</span>
                                         </span>
-                                    </TableCell>
+                                    </TableCell> */}
                                 </TableRow> )
                         }
                     </TableBody>
@@ -268,4 +244,4 @@ const ManagementTable = ( ) => {
     )
 }
 
-export default ManagementTable
+export default ArchiveTable

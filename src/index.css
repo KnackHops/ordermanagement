@@ -23,3 +23,7 @@ h1 {
 p {
   font-weight: 300;
 }
+
+a {
+    text-decoration: none;
+}

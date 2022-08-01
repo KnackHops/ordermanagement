@@ -166,7 +166,7 @@ const ManagementHeader = ( { updateDataHandler } ) => {
                            label="PAYMENT STATUS"
                            value={ keyword }
                            sx={ { minWidth: "12rem" } }
-                           onChange={ e => handleFilterBy( e.target.value ) } >
+                           onChange={ e => handleKeyWord( e.target.value ) } >
                                {
                                    paymentStatusDropDown.map( ( paymentOption, i ) =>
                                        <MenuItem

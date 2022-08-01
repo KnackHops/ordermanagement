@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { createContext, useEffect, useState, useMemo } from "react";
+import { createContext, useEffect, useState, useMemo, useContext } from "react";
 import DataCard from "../../../sharedComponent/DataCard";
 import SectionWrapper from "../../../wrapper/SectionWrapper"
+import { FunctionContext } from "../Main";
 import ManagementHeader from "./ManagementHeader";
 import './ManagementSystem.scss';
 import ManagementTable from "./ManagementTable";
@@ -35,6 +36,11 @@ const aggrevatedDatasFormat = [
 ]
 
 const ManagementSystem = () => {
+    // function context
+
+    const { dateStringify } = useContext( FunctionContext );
+
+    // function context
 
     const [ orders, setOrders ] = useState( [] );
 
@@ -61,10 +67,6 @@ const ManagementSystem = () => {
         .then( data => setOrders( data ) )
         .catch( err => console.log( err ) )
     }
-
-    useEffect( () => {
-        fetchTableData( true )
-    }, [] )
 
     const updateDataHandler = () => {
         fetchTableData()
@@ -110,13 +112,6 @@ const ManagementSystem = () => {
 
     const [ start_date, setStartDate ] = useState( "" )
     const [ end_date, setEndDate ] = useState( "" )
-
-    const dateStringify = date => {
-        const month = ( date.getMonth() + 1 ) > 9 ? date.getMonth() + 1 : `0${ date.getMonth() + 1 }`
-        const day = date.getDate() > 9 ? date.getDate() : `0${ date.getDate() }`
-
-        return `${ date.getFullYear() }-${ month }-${ day }`
-    }
 
     const startDateMax = useMemo( () => {
         if ( !end_date ) return ""
@@ -203,7 +198,7 @@ const ManagementSystem = () => {
     
             returnDates.end_date = currentDate.toISOString();
     
-            currentDate.setDate( currentDate.getDate() - 1 )
+            currentDate.setDate( currentDate.getDate() - 7 )
 
             currentDate.setHours( 0, 0, 0, 0 )
     
@@ -212,6 +207,10 @@ const ManagementSystem = () => {
 
         return returnDates
     }
+
+    useEffect( () => {
+        fetchTableData( true )
+    }, [] )
 
     return (
         <SectionWrapper sectionClass="management-system">
@@ -227,8 +226,7 @@ const ManagementSystem = () => {
                     startDateMax,
                     handleStartDate,
                     end_date,
-                    handleEndDate,
-                    dateStringify } }>
+                    handleEndDate } }>
                 <ManagementHeader updateDataHandler={ updateDataHandler } />
                 <div className="data-card-container margin--top-standard">
                     <ul className="fd">
